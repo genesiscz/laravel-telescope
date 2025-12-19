@@ -63,6 +63,9 @@ export default {
 
             <!-- Additional Information -->
             <related-entries :entry="entry" :batch="batch"> </related-entries>
+
+            <!-- AI Agent Integration -->
+            <ai-agent-prompt v-if="entry" :entry="entry" resource="commands"></ai-agent-prompt>
         </div>
     </preview-screen>
 </template>

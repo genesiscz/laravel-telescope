@@ -149,6 +149,9 @@ export default {
                     <stack-trace :trace="slotProps.entry.content.trace" v-show="currentTab == 'trace'"></stack-trace>
                 </div>
             </div>
+
+            <!-- AI Agent Integration -->
+            <ai-agent-prompt v-if="entry" :entry="entry" resource="exceptions"></ai-agent-prompt>
         </div>
     </preview-screen>
 </template>

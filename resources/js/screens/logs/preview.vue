@@ -76,6 +76,9 @@ export default {
                     </div>
                 </div>
             </div>
+
+            <!-- AI Agent Integration -->
+            <ai-agent-prompt v-if="entry" :entry="entry" resource="logs"></ai-agent-prompt>
         </div>
     </preview-screen>
 </template>

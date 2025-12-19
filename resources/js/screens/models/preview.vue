@@ -61,6 +61,9 @@ export default {
                     </copy-clipboard>
                 </div>
             </div>
+
+            <!-- AI Agent Integration -->
+            <ai-agent-prompt v-if="entry" :entry="entry" resource="models"></ai-agent-prompt>
         </div>
     </preview-screen>
 </template>
