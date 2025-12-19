@@ -85,6 +85,7 @@ Route::post('/telescope-api/monitored-tags/delete', 'MonitoredTagController@dest
 Route::post('/telescope-api/toggle-recording', 'RecordingController@toggle');
 
 // AI Assistant...
+Route::get('/telescope-api/ai/config', 'AiController@config');
 Route::post('/telescope-api/ai/ask', 'AiController@ask');
 
 // Clear Entries...
