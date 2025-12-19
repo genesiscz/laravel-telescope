@@ -12,6 +12,7 @@ import indexScreen from './components/IndexScreen.vue';
 import previewScreen from './components/PreviewScreen.vue';
 import alert from './components/Alert.vue';
 import copyClipboard from './components/CopyClipboard.vue';
+import aiAgentPrompt from './components/AiAgentPrompt.vue';
 
 import 'bootstrap';
 
@@ -48,6 +49,7 @@ Vue.component('index-screen', indexScreen);
 Vue.component('preview-screen', previewScreen);
 Vue.component('alert', alert);
 Vue.component('copy-clipboard', copyClipboard);
+Vue.component('ai-agent-prompt', aiAgentPrompt);
 
 Vue.mixin(Base);
 
