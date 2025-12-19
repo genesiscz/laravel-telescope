@@ -14,18 +14,18 @@ export default {}
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td :title="slotProps.entry.content.class" v-if="!$route.query.family_hash">
-                {{ truncate(slotProps.entry.content.class, 70) }}<br />
+            <td style="font-size: 0.85em; word-break: break-all;" v-if="!$route.query.family_hash">
+                {{ slotProps.entry.content.class }}<br />
 
-                <small class="text-muted">{{ truncate(slotProps.entry.content.message, 100) }}</small>
+                <small class="text-muted">{{ slotProps.entry.content.message }}</small>
             </td>
 
             <td class="table-fit text-right text-muted" v-if="!$route.query.family_hash && !$route.query.tag">
                 <span>{{ slotProps.entry.content.occurrences }}</span>
             </td>
 
-            <td :title="slotProps.entry.content.message" v-if="$route.query.family_hash">
-                {{ truncate(slotProps.entry.content.message, 80) }}<br />
+            <td style="font-size: 0.85em; word-break: break-all;" v-if="$route.query.family_hash">
+                {{ slotProps.entry.content.message }}<br />
 
                 <small class="text-muted">
                     <span v-if="slotProps.entry.content.user && slotProps.entry.content.user.email">

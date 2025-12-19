@@ -20,9 +20,9 @@ export default {
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td>
-                <span :title="slotProps.entry.content.name">{{
-                    truncate(slotProps.entry.content.name || slotProps.entry.content.id, 68)
+            <td style="font-size: 0.85em; word-break: break-all;">
+                <span>{{
+                    slotProps.entry.content.name || slotProps.entry.content.id
                 }}</span
                 ><br />
                 <small class="text-muted">

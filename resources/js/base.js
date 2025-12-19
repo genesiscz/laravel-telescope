@@ -48,7 +48,7 @@ export default {
          * Show the time in local time.
          */
         localTime(time) {
-            return moment(time).local().format('MMMM Do YYYY, h:mm:ss A');
+            return moment(time).local().format('D.M. H:mm:ss');
         },
 
         /**

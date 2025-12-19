@@ -26,8 +26,8 @@ export default {
                 </span>
             </td>
 
-            <td :title="slotProps.entry.content.uri">
-                {{ truncate(slotProps.entry.content.uri, 50) }}
+            <td style="font-size: 0.85em; word-break: break-all;">
+                {{ slotProps.entry.content.uri }}
             </td>
 
             <td class="table-fit text-center">

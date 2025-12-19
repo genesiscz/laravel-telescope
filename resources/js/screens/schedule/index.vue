@@ -12,9 +12,9 @@ export default {}
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td>
+            <td style="font-size: 0.85em; word-break: break-all;">
                 <code>{{
-                    truncate(slotProps.entry.content.description, 85) || truncate(slotProps.entry.content.command, 85)
+                    slotProps.entry.content.description || slotProps.entry.content.command
                 }}</code>
             </td>
 

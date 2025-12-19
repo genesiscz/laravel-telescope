@@ -26,8 +26,8 @@ export default {
                 </span>
             </td>
 
-            <td :title="slotProps.entry.content.uri">
-                {{ truncate(slotProps.entry.content.uri, 60) }}
+            <td style="font-size: 0.85em; word-break: break-all;">
+                {{ slotProps.entry.content.uri }}
             </td>
 
             <td class="table-fit">
@@ -58,9 +58,9 @@ export default {
             <td
                 class="table-fit text-muted"
                 :data-timeago="slotProps.entry.created_at"
-                :title="slotProps.entry.created_at"
             >
-                {{ timeAgo(slotProps.entry.created_at) }}
+                {{ timeAgo(slotProps.entry.created_at) }}<br>
+                <small class="text-muted" style="opacity: 0.7;">{{ localTime(slotProps.entry.created_at) }}</small>
             </td>
 
             <td class="table-fit">

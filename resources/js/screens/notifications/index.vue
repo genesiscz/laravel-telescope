@@ -12,23 +12,23 @@ export default {}
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td>
-                <span :title="slotProps.entry.content.notification">{{
-                    truncate(slotProps.entry.content.notification || '-', 70)
+            <td style="font-size: 0.85em; word-break: break-all;">
+                <span>{{
+                    slotProps.entry.content.notification || '-'
                 }}</span>
 
                 <span class="badge badge-secondary ml-2" v-if="slotProps.entry.content.queued"> Queued </span>
 
                 <br />
 
-                <small class="text-muted" :title="slotProps.entry.content.notifiable">
+                <small class="text-muted">
                     Recipient:
-                    {{ truncate(slotProps.entry.content.notifiable, 90) }}
+                    {{ slotProps.entry.content.notifiable }}
                 </small>
             </td>
 
-            <td class="table-fit text-muted">
-                {{ truncate(slotProps.entry.content.channel, 20) }}
+            <td class="table-fit text-muted" style="font-size: 0.85em;">
+                {{ slotProps.entry.content.channel }}
             </td>
 
             <td

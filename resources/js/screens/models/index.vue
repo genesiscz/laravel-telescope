@@ -18,7 +18,7 @@ export default {
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td>{{ truncate(slotProps.entry.content.model, 70) }}</td>
+            <td style="font-size: 0.85em; word-break: break-all;">{{ slotProps.entry.content.model }}</td>
 
             <td class="table-fit">
                 <span class="badge" :class="'badge-' + modelActionClass(slotProps.entry.content.action)">
@@ -29,9 +29,9 @@ export default {
             <td
                 class="table-fit text-muted"
                 :data-timeago="slotProps.entry.created_at"
-                :title="slotProps.entry.created_at"
             >
-                {{ timeAgo(slotProps.entry.created_at) }}
+                {{ timeAgo(slotProps.entry.created_at) }}<br>
+                <small class="text-muted" style="opacity: 0.7;">{{ localTime(slotProps.entry.created_at) }}</small>
             </td>
 
             <td class="table-fit">

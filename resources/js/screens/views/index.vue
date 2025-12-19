@@ -18,9 +18,9 @@ export default {
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td>
+            <td style="font-size: 0.85em; word-break: break-all;">
                 {{ slotProps.entry.content.name }} <br />
-                <small class="text-muted">{{ truncate(slotProps.entry.content.path, 100) }}</small>
+                <small class="text-muted">{{ slotProps.entry.content.path }}</small>
             </td>
 
             <td class="table-fit text-right text-muted">
@@ -28,7 +28,8 @@ export default {
             </td>
 
             <td class="table-fit text-muted" :data-timeago="slotProps.entry.created_at">
-                {{ timeAgo(slotProps.entry.created_at) }}
+                {{ timeAgo(slotProps.entry.created_at) }}<br>
+                <small class="text-muted" style="opacity: 0.7;">{{ localTime(slotProps.entry.created_at) }}</small>
             </td>
 
             <td class="table-fit">

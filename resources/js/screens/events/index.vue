@@ -12,8 +12,8 @@ export default {}
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td :title="slotProps.entry.content.name">
-                {{ truncate(slotProps.entry.content.name, 80) }}
+            <td style="font-size: 0.85em; word-break: break-all;">
+                {{ slotProps.entry.content.name }}
 
                 <span class="badge badge-secondary ml-2" v-if="slotProps.entry.content.broadcast"> Broadcast </span>
             </td>

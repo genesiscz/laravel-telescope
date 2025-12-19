@@ -18,8 +18,8 @@ export default {
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td :title="slotProps.entry.content.message">
-                {{ truncate(slotProps.entry.content.message, 50) }}
+            <td style="font-size: 0.85em; word-break: break-all;">
+                {{ slotProps.entry.content.message }}
             </td>
 
             <td class="table-fit">

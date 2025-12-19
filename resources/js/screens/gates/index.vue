@@ -19,7 +19,7 @@ export default {
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td>{{ truncate(slotProps.entry.content.ability, 80) }}</td>
+            <td style="font-size: 0.85em; word-break: break-all;">{{ slotProps.entry.content.ability }}</td>
 
             <td class="table-fit">
                 <span class="badge" :class="'badge-' + gateResultClass(slotProps.entry.content.result)">
@@ -27,16 +27,16 @@ export default {
                 </span>
             </td>
 
-            <td class="table-fit">
-                {{truncate(slotProps.entry.content.message, 30)}}
+            <td class="table-fit" style="font-size: 0.85em;">
+                {{ slotProps.entry.content.message }}
             </td>
 
             <td
                 class="table-fit text-muted"
                 :data-timeago="slotProps.entry.created_at"
-                :title="slotProps.entry.created_at"
             >
-                {{ timeAgo(slotProps.entry.created_at) }}
+                {{ timeAgo(slotProps.entry.created_at) }}<br>
+                <small class="text-muted" style="opacity: 0.7;">{{ localTime(slotProps.entry.created_at) }}</small>
             </td>
 
             <td class="table-fit">

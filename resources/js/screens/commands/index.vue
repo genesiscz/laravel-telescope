@@ -12,8 +12,8 @@ export default {}
         </tr>
 
         <template slot="row" slot-scope="slotProps">
-            <td :title="slotProps.entry.content.command">
-                <code>{{ truncate(slotProps.entry.content.command, 90) }}</code>
+            <td style="font-size: 0.85em; word-break: break-all;">
+                <code>{{ slotProps.entry.content.command }}</code>
             </td>
 
             <td class="table-fit text-center text-muted">
