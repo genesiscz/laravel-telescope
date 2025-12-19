@@ -15,6 +15,32 @@ Laravel Telescope is an elegant debug assistant for the Laravel framework. Teles
 <img src="https://laravel.com/img/docs/telescope-example.png">
 </p>
 
+## Installing This Fork
+
+To install this fork instead of the official Laravel Telescope, add the following to your `composer.json`:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/genesiscz/laravel-telescope"
+        }
+    ],
+    "require": {
+        "laravel/telescope": "dev-5.x"
+    }
+}
+```
+
+Then run:
+
+```bash
+composer update laravel/telescope
+```
+
+This will install the fork with additional AI agent features and enhanced datetime display.
+
 ## Official Documentation
 
 Documentation for Telescope can be found on the [Laravel website](https://laravel.com/docs/telescope).
