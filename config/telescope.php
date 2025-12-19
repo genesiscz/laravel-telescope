@@ -209,4 +209,35 @@ return [
         Watchers\ScheduleWatcher::class => env('TELESCOPE_SCHEDULE_WATCHER', true),
         Watchers\ViewWatcher::class => env('TELESCOPE_VIEW_WATCHER', true),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Telescope AI Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure AI features for Telescope including the LLM provider, model,
+    | and API keys. This enables the "Ask AI" feature in entry detail views.
+    |
+    */
+
+    'ai' => [
+        'enabled' => env('TELESCOPE_AI_ENABLED', false),
+        'provider' => env('TELESCOPE_AI_PROVIDER', 'openai'),
+        'model' => env('TELESCOPE_AI_MODEL', 'gpt-4o-mini'),
+        'keys' => [
+            'openai' => env('OPENAI_API_KEY'),
+            'anthropic' => env('ANTHROPIC_API_KEY'),
+            'anyscale' => env('ANYSCALE_API_KEY'),
+            'azure_openai' => env('AZURE_OPENAI_API_KEY'),
+            'azure_openai_embed' => env('AZURE_OPENAI_EMBED_API_KEY'),
+            'cohere' => env('COHERE_API_KEY'),
+            'fireworks' => env('FIREWORKS_API_KEY'),
+            'gemini' => env('GEMINI_API_KEY'),
+            'grok' => env('GROK_API_KEY'),
+            'groq' => env('GROQ_API_KEY'),
+            'mistral' => env('MISTRAL_API_KEY'),
+            'ollama' => env('OLLAMA_API_KEY'),
+            'openrouter' => env('OPENROUTER_API_KEY'),
+        ],
+    ],
 ];
