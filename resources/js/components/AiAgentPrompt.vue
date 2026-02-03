@@ -11,6 +11,7 @@ export default {
             conversations: [], // Array of {question, response}
             selectedProvider: 'openai',
             selectedModel: 'gpt-4o-mini',
+            sessionCookies: '', // Cookies from backend (includes HttpOnly session cookie)
             providers: {
                 'openai': ['gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'],
                 'anthropic': ['claude-3-5-sonnet-20241022', 'claude-3-opus-20240229', 'claude-3-haiku-20240307'],
@@ -31,16 +32,11 @@ export default {
             return token ? token.content : '';
         },
 
-        sessionCookie() {
-            // Get all cookies as a string for the CURL command
-            return document.cookie || '';
-        },
-
         curlCommand() {
             return `curl '${this.baseUrl}/telescope-api/${this.resource}/${this.entry.id}' \\
   -H 'Accept: application/json' \\
   -H 'X-CSRF-TOKEN: ${this.csrfToken}' \\
-  -H 'Cookie: ${this.sessionCookie}'`;
+  -H 'Cookie: ${this.sessionCookies}'`;
         },
 
         tagTabs() {
@@ -103,7 +99,7 @@ export default {
   -X 'POST' \\
   -H 'Accept: application/json' \\
   -H 'X-CSRF-TOKEN: ${this.csrfToken}' \\
-  -H 'Cookie: ${this.sessionCookie}'`;
+  -H 'Cookie: ${this.sessionCookies}'`;
         },
 
         async checkAiConfiguration() {
@@ -123,6 +119,9 @@ export default {
                     }
                     if (data.model) {
                         this.selectedModel = data.model;
+                    }
+                    if (data.cookies) {
+                        this.sessionCookies = data.cookies;
                     }
                 }
             } catch (e) {

@@ -13,19 +13,30 @@ class AiController extends Controller
     /**
      * Get AI configuration status.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function config()
+    public function config(Request $request)
     {
         $enabled = config('telescope.ai.enabled', false);
         $provider = config('telescope.ai.provider', 'openai');
         $model = config('telescope.ai.model', 'gpt-4o-mini');
         $apiKey = config("telescope.ai.keys.{$provider}");
 
+        // Build cookie string for curl commands (session cookie is HttpOnly, JS can't read it)
+        $cookieParts = [];
+        foreach ($request->cookies->all() as $name => $value) {
+            if (is_string($value)) {
+                $cookieParts[] = $name.'='.urlencode($value);
+            }
+        }
+        $cookieString = implode('; ', $cookieParts);
+
         return response()->json([
             'configured' => $enabled && ! empty($apiKey),
             'provider' => $provider,
             'model' => $model,
+            'cookies' => $cookieString,
         ]);
     }
 
