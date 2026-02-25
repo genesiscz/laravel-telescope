@@ -23,20 +23,47 @@ class AiController extends Controller
         $model = config('telescope.ai.model', 'gpt-4o-mini');
         $apiKey = config("telescope.ai.keys.{$provider}");
 
-        // Build cookie string for curl commands (session cookie is HttpOnly, JS can't read it)
-        $cookieParts = [];
-        foreach ($request->cookies->all() as $name => $value) {
-            if (is_string($value)) {
-                $cookieParts[] = $name.'='.urlencode($value);
+        // Use raw Cookie header (encrypted values) so curl commands actually work.
+        // $request->cookies->all() returns decrypted values which can't be reused.
+        $cookieString = $request->header('Cookie', '');
+
+        // Extract raw (encrypted) XSRF-TOKEN for X-XSRF-TOKEN header in curl.
+        $rawXsrfToken = '';
+        if (preg_match('/XSRF-TOKEN=([^;]+)/', $cookieString, $matches)) {
+            $rawXsrfToken = urldecode($matches[1]);
+        }
+
+        // Reuse or generate a short-lived Bearer token for curl (bypasses CSRF entirely).
+        // Cached in session to avoid creating a new Sanctum token on every Telescope page load.
+        $bearerToken = '';
+        $user = $request->user() ?? $request->user('web') ?? auth('web')->user();
+        if ($user) {
+            $cached = $request->session()->get('telescope_curl_token');
+
+            if ($cached && $cached['expires_at'] > now()->timestamp) {
+                $bearerToken = $cached['token'];
+            } else {
+                $token = $user->createToken(
+                    'telescope-curl',
+                    ['*'],
+                    now()->addHour()
+                );
+                $bearerToken = $token->plainTextToken;
+
+                $request->session()->put('telescope_curl_token', [
+                    'token' => $bearerToken,
+                    'expires_at' => now()->addHour()->timestamp,
+                ]);
             }
         }
-        $cookieString = implode('; ', $cookieParts);
 
         return response()->json([
             'configured' => $enabled && ! empty($apiKey),
             'provider' => $provider,
             'model' => $model,
             'cookies' => $cookieString,
+            'xsrf_token' => $rawXsrfToken,
+            'bearer_token' => $bearerToken,
         ]);
     }
 

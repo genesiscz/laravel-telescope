@@ -12,6 +12,8 @@ export default {
             selectedProvider: 'openai',
             selectedModel: 'gpt-4o-mini',
             sessionCookies: '', // Cookies from backend (includes HttpOnly session cookie)
+            rawXsrfToken: '', // Raw encrypted XSRF token for curl commands
+            bearerToken: '', // Short-lived Bearer token for curl commands
             providers: {
                 'openai': ['gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'],
                 'anthropic': ['claude-3-5-sonnet-20241022', 'claude-3-opus-20240229', 'claude-3-haiku-20240307'],
@@ -33,10 +35,15 @@ export default {
         },
 
         curlCommand() {
+            if (this.bearerToken) {
+                return `curl '${this.baseUrl}/telescope-api/${this.resource}/${this.entry.id}' \\
+  -H 'Accept: application/json' \\
+  -H 'Authorization: Bearer ${this.bearerToken}'`;
+            }
             return `curl '${this.baseUrl}/telescope-api/${this.resource}/${this.entry.id}' \\
   -H 'Accept: application/json' \\
-  -H 'X-CSRF-TOKEN: ${this.csrfToken}' \\
-  -H 'Cookie: ${this.sessionCookies}'`;
+  -H 'X-XSRF-TOKEN: ${this.rawXsrfToken}' \\
+  -b '${this.sessionCookies}'`;
         },
 
         tagTabs() {
@@ -95,11 +102,17 @@ export default {
     methods: {
         buildTagQuery(tag) {
             const encodedTag = encodeURIComponent(tag);
+            if (this.bearerToken) {
+                return `curl '${this.baseUrl}/telescope-api/${this.resource}?tag=${encodedTag}&before=&take=50&family_hash=' \\
+  -X 'POST' \\
+  -H 'Accept: application/json' \\
+  -H 'Authorization: Bearer ${this.bearerToken}'`;
+            }
             return `curl '${this.baseUrl}/telescope-api/${this.resource}?tag=${encodedTag}&before=&take=50&family_hash=' \\
   -X 'POST' \\
   -H 'Accept: application/json' \\
-  -H 'X-CSRF-TOKEN: ${this.csrfToken}' \\
-  -H 'Cookie: ${this.sessionCookies}'`;
+  -H 'X-XSRF-TOKEN: ${this.rawXsrfToken}' \\
+  -b '${this.sessionCookies}'`;
         },
 
         async checkAiConfiguration() {
@@ -122,6 +135,12 @@ export default {
                     }
                     if (data.cookies) {
                         this.sessionCookies = data.cookies;
+                    }
+                    if (data.xsrf_token) {
+                        this.rawXsrfToken = data.xsrf_token;
+                    }
+                    if (data.bearer_token) {
+                        this.bearerToken = data.bearer_token;
                     }
                 }
             } catch (e) {
