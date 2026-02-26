@@ -10,12 +10,12 @@ export default {
             aiConfigured: true, // Will be checked on mount
             conversations: [], // Array of {question, response}
             selectedProvider: 'openai',
-            selectedModel: 'gpt-4o-mini',
+            selectedModel: 'gpt-5-mini',
             sessionCookies: '', // Cookies from backend (includes HttpOnly session cookie)
             rawXsrfToken: '', // Raw encrypted XSRF token for curl commands
             bearerToken: '', // Short-lived Bearer token for curl commands
             providers: {
-                'openai': ['gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo'],
+                'openai': ['gpt-5-mini', 'gpt-5-chat-latest', 'gpt-4o-mini', 'gpt-4o'],
                 'anthropic': ['claude-3-5-sonnet-20241022', 'claude-3-opus-20240229', 'claude-3-haiku-20240307'],
                 'groq': ['llama-3.1-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768'],
                 'gemini': ['gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-pro'],

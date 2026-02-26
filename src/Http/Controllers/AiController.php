@@ -20,7 +20,7 @@ class AiController extends Controller
     {
         $enabled = config('telescope.ai.enabled', false);
         $provider = config('telescope.ai.provider', 'openai');
-        $model = config('telescope.ai.model', 'gpt-4o-mini');
+        $model = config('telescope.ai.model', 'gpt-5-mini');
         $apiKey = config("telescope.ai.keys.{$provider}");
 
         // Use raw Cookie header (encrypted values) so curl commands actually work.
